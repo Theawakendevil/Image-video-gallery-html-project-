@@ -1,0 +1,75 @@
+import zipfile
+
+import os
+
+
+
+# Define the base directory and zip file path
+
+base_dir = "/mnt/data/XploreStyleFileManager_Rename"
+
+zip_path = base_dir + ".zip"
+
+
+
+# Create some fake directory structure and files to simulate the project (for demo purposes)
+
+os.makedirs(base_dir + "/app/src/main/java/com/mycompany/myapp", exist_ok=True)
+
+os.makedirs(base_dir + "/app/src/main/res/layout", exist_ok=True)
+
+os.makedirs(base_dir + "/app/src/main/res/values", exist_ok=True)
+
+
+
+# Create placeholder files
+
+file_structure = {
+
+    "AndroidManifest.xml": "<manifest package=\"com.mycompany.myapp\"/>",
+
+    "build.gradle": "apply plugin: 'com.android.application'",
+
+    "app/src/main/java/com/mycompany/myapp/MainActivity.java": "// Java code for MainActivity",
+
+    "app/src/main/java/com/mycompany/myapp/FileAdapter.java": "// Java code for FileAdapter with rename logic",
+
+    "app/src/main/res/layout/activity_main.xml": "<RelativeLayout></RelativeLayout>",
+
+    "app/src/main/res/values/strings.xml": "<resources><string name=\"app_name\">File Manager</string></resources>"
+
+}
+
+
+
+# Write the content to the respective paths
+
+for rel_path, content in file_structure.items():
+
+    full_path = os.path.join(base_dir, rel_path)
+
+    os.makedirs(os.path.dirname(full_path), exist_ok=True)
+
+    with open(full_path, "w") as f:
+
+        f.write(content)
+
+
+
+# Create the zip file
+
+with zipfile.ZipFile(zip_path, 'w') as zipf:
+
+    for root, _, files in os.walk(base_dir):
+
+        for file in files:
+
+            full_path = os.path.join(root, file)
+
+            arcname = os.path.relpath(full_path, base_dir)
+
+            zipf.write(full_path, arcname)
+
+
+
+zip_path
