@@ -1,0 +1,13 @@
+ProjectRoot/
+├── MainActivity.java
+├── FilePaneFragment.java      <-- one for each pane (left/right)
+├── FileAdapter.java           <-- adapter for RecyclerView
+├── FileItem.java              <-- model class
+├── FileUtils.java             <-- copy/move/delete logic
+├── res/
+│   ├── layout/
+│   │   ├── activity_main.xml
+│   │   ├── fragment_file_pane.xml
+│   │   ├── item_file.xml
+│   └── drawable/ (icons)
+├── AndroidManifest.xml
